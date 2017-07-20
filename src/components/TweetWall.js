@@ -4,10 +4,26 @@ import Tweet from './Tweet';
 class TweetWall extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       tweets: []
     };
+  }
+
+  componentWillMount() {
+    this.setState({
+      tweets: this.props.newTweets
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      tweets: [...nextProps.newTweets, ...this.state.tweets]
+    })
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return Boolean(nextProps.newTweets > 0)
   }
 
   // TODO: componentWillMount()
